@@ -10,6 +10,8 @@
 
 An interactive course and whiteboard for practising product architecture in product management interviews.
 
+[Try the live lab](https://productdave.github.io/Product-Architecture-Lab/)
+
 </div>
 
 ## What it does
@@ -39,8 +41,8 @@ The prompts and worked answers are illustrative practice material. They are not 
 Clone the repository and open `dist/index.html` in a browser. The app is static HTML, CSS, and JavaScript. It needs no build step, account, API key, or server.
 
 ```bash
-git clone https://github.com/productdave/product-architecture-lab.git
-cd product-architecture-lab
+git clone https://github.com/productdave/Product-Architecture-Lab.git
+cd Product-Architecture-Lab
 open dist/index.html
 ```
 

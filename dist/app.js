@@ -63,8 +63,52 @@ const $=s=>document.querySelector(s),caseNow=()=>cases.find(c=>c.id===db.caseId)
 function save(){localStorage.setItem(key,JSON.stringify(db))}function toast(s){$('#toast').textContent=s;$('#toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('show'),2300)}
 function status(s){$('#board-status').textContent=s}function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 function renderCourse(){const c=caseNow(),l=lessons[db.step];$('#case-select').innerHTML=cases.map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('');$('#case-select').value=c.id;$('#case-prompt').textContent=c.prompt;$('#lesson-nav').innerHTML=lessons.map((x,i)=>`<button type="button" class="lesson-link ${i===db.step?'active':''}" data-step="${i}"><span class="lesson-num">${i+1}</span>${esc(x.title)}</button>`).join('');$('#step-kicker').textContent=`Step ${db.step+1} of ${lessons.length}`;$('#step-title').textContent=l.title;$('#step-intro').textContent=l.intro;$('#step-task').textContent=l.task(c);$('#step-checks').innerHTML=l.checks.map(x=>`<li>${esc(x)}</li>`).join('');$('#reasoning').value=work().notes[db.step]||'';$('#example-text').textContent=l.answer(c);$('#example-panel').hidden=true;$('#reveal-answer').textContent='Reveal worked answer';$('#next-step').textContent=db.step===lessons.length-1?'Start another case':'Next step';const completed=Object.values(work().notes).filter(x=>x.trim()).length;$('#progress-label').textContent=`${completed} of ${lessons.length} written reflections`;$('#progress-fill').style.width=`${completed/lessons.length*100}%`;renderBoard()}
-function normalNodes(){return work().nodes}function boardData(){if(!exampleMode)return {nodes:normalNodes(),edges:work().edges};const c=caseNow(),limit=db.step<3?3:6,visible=c.nodes.filter(n=>n[2]<=limit),scale=Math.max(.55,Math.min(1,($('#board').clientWidth-190)/700));return {nodes:visible.map((n,i)=>({id:`ex${i}`,label:n[0],type:n[1],x:Math.round(n[3]*scale),y:n[4]})),edges:c.edges.filter(e=>visible.includes(c.nodes[e[0]])&&visible.includes(c.nodes[e[1]])).map(e=>({from:`ex${visible.indexOf(c.nodes[e[0]])}`,to:`ex${visible.indexOf(c.nodes[e[1]])}`,label:e[2]}))}}
-function renderBoard(){const {nodes,edges}=boardData(),board=$('#board'),layer=$('#nodes');board.classList.toggle('showing-example',exampleMode);board.querySelector('.edge-editor')?.remove();layer.innerHTML=nodes.map(n=>`<div class="node ${n.type==='note'?'note':''} type-${n.type==='service'||n.type==='component'?'server':n.type} ${selected===n.id&&!exampleMode?'selected':''}" data-id="${esc(n.id)}" tabindex="0" role="button" aria-label="${esc(n.label)} ${esc(n.type)}" style="left:${n.x}px;top:${n.y}px"><span class="node-glyph" aria-hidden="true"></span><span class="node-title">${esc(n.label)}</span><span class="node-type">${esc(n.type==='service'?'server / service':n.type)}</span><span class="node-port" data-port="${esc(n.id)}" role="button" tabindex="0" aria-label="Drag to connect from ${esc(n.label)}"></span></div>`).join('');$('#empty-board').style.display=nodes.length?'none':'grid';const w=board.clientWidth,h=board.clientHeight,svg=$('#edges');svg.setAttribute('viewBox',`0 0 ${w} ${h}`);svg.innerHTML=`<defs><marker id="arrowhead" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#20221f"/></marker></defs>`+edges.map((e,index)=>{const a=nodes.find(n=>n.id===e.from),b=nodes.find(n=>n.id===e.to);if(!a||!b)return '';let x1=a.x+80,y1=a.y+30,x2=b.x+80,y2=b.y+30;const dx=x2-x1,dy=y2-y1,d=Math.hypot(dx,dy)||1;x1+=dx/d*65;y1+=dy/d*27;x2-=dx/d*65;y2-=dy/d*27;return `<path class="edge" d="M${x1} ${y1} L${x2} ${y2}" marker-end="url(#arrowhead)"/><text class="edge-label" data-edge="${index}" tabindex="0" role="button" aria-label="Edit connection label ${esc(e.label||'data')}" x="${(x1+x2)/2}" y="${(y1+y2)/2-7}" text-anchor="middle">${esc(e.label||'data')}</text>`}).join('')+'<line id="drag-line" x1="0" y1="0" x2="0" y2="0" style="display:none" />';$('#show-example').textContent=exampleMode?'Back to my board':'Show example';$('#show-example').classList.toggle('active',exampleMode);$('#add-component').disabled=exampleMode;$('#component-type').disabled=exampleMode;$('#add-note').disabled=exampleMode;$('#add-text').disabled=exampleMode;$('#delete-selected').disabled=exampleMode;$('#rename-selected').disabled=exampleMode||!selected}
+function normalNodes(){return work().nodes}
+function boardData(){
+  if(!exampleMode)return {nodes:normalNodes(),edges:work().edges};
+  const c=caseNow(),limit=db.step<3?3:6,visible=c.nodes.filter(n=>n[2]<=limit);
+  return {
+    nodes:visible.map((n,i)=>({id:`ex${i}`,label:n[0],type:n[1],x:n[3],y:n[4]})),
+    edges:c.edges.filter(e=>visible.includes(c.nodes[e[0]])&&visible.includes(c.nodes[e[1]]))
+      .map(e=>({from:`ex${visible.indexOf(c.nodes[e[0]])}`,to:`ex${visible.indexOf(c.nodes[e[1]])}`,label:e[2]}))
+  };
+}
+function edgePoint(node,element,dx,dy,sign){
+  const cx=node.x+element.offsetWidth/2,cy=node.y+element.offsetHeight/2;
+  const halfW=element.offsetWidth/2+5,halfH=element.offsetHeight/2+5;
+  const reach=1/Math.max(Math.abs(dx)/halfW,Math.abs(dy)/halfH,1e-6);
+  return {x:cx+sign*dx*reach,y:cy+sign*dy*reach};
+}
+function renderBoard(){
+  const {nodes,edges}=boardData(),board=$('#board'),layer=$('#nodes');
+  board.classList.toggle('showing-example',exampleMode);
+  board.querySelector('.edge-editor')?.remove();
+  layer.innerHTML=nodes.map(n=>`<div class="node ${n.type==='note'?'note':''} type-${n.type==='service'||n.type==='component'?'server':n.type} ${selected===n.id&&!exampleMode?'selected':''}" data-id="${esc(n.id)}" tabindex="0" role="button" aria-label="${esc(n.label)} ${esc(n.type)}" style="left:${n.x}px;top:${n.y}px"><span class="node-glyph" aria-hidden="true"></span><span class="node-title">${esc(n.label)}</span><span class="node-type">${esc(n.type==='service'?'server / service':n.type)}</span><span class="node-port" data-port="${esc(n.id)}" role="button" tabindex="0" aria-label="Drag to connect from ${esc(n.label)}"></span></div>`).join('');
+  $('#empty-board').style.display=nodes.length?'none':'grid';
+  const elements=new Map([...layer.querySelectorAll('.node')].map(el=>[el.dataset.id,el]));
+  const rightEdge=nodes.reduce((max,n)=>Math.max(max,n.x+(elements.get(n.id)?.offsetWidth||150)+20),0);
+  board.style.width=exampleMode?`${Math.max(board.parentElement.clientWidth,rightEdge)}px`:'100%';
+  const w=board.clientWidth,h=board.clientHeight,svg=$('#edges');
+  svg.setAttribute('viewBox',`0 0 ${w} ${h}`);
+  svg.innerHTML=`<defs><marker id="arrowhead" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#20221f"/></marker></defs>`+
+    edges.map((e,index)=>{
+      const a=nodes.find(n=>n.id===e.from),b=nodes.find(n=>n.id===e.to);
+      const aEl=elements.get(e.from),bEl=elements.get(e.to);
+      if(!a||!b||!aEl||!bEl)return '';
+      const dx=b.x+bEl.offsetWidth/2-a.x-aEl.offsetWidth/2;
+      const dy=b.y+bEl.offsetHeight/2-a.y-aEl.offsetHeight/2;
+      const start=edgePoint(a,aEl,dx,dy,1),end=edgePoint(b,bEl,dx,dy,-1);
+      return `<path class="edge" d="M${start.x} ${start.y} L${end.x} ${end.y}" marker-end="url(#arrowhead)"/><text class="edge-label" data-edge="${index}" tabindex="0" role="button" aria-label="Edit connection label ${esc(e.label||'data')}" x="${(start.x+end.x)/2}" y="${(start.y+end.y)/2-9}" text-anchor="middle">${esc(e.label||'data')}</text>`;
+    }).join('')+'<line id="drag-line" x1="0" y1="0" x2="0" y2="0" style="display:none" />';
+  $('#show-example').textContent=exampleMode?'Back to my board':'Show example';
+  $('#show-example').classList.toggle('active',exampleMode);
+  $('#add-component').disabled=exampleMode;
+  $('#component-type').disabled=exampleMode;
+  $('#add-note').disabled=exampleMode;
+  $('#add-text').disabled=exampleMode;
+  $('#delete-selected').disabled=exampleMode;
+  $('#rename-selected').disabled=exampleMode||!selected;
+}
 function addNode(type){if(exampleMode)return;const label=type==='note'?'New note':type==='text'?'Add text':`New ${type}`,count=normalNodes().length,cols=Math.max(1,Math.floor(($('#board').clientWidth-20)/205));const n={id:`n${Date.now()}${Math.random().toString(36).slice(2,5)}`,label,type,x:Math.max(20,Math.min(40+(count%cols)*205,$('#board').clientWidth-190)),y:Math.max(30,Math.min(70+Math.floor(count/cols)*115,$('#board').clientHeight-90))};if(type==='text'){n.x=40;n.y=Math.max(40,Math.min($('#board').clientHeight-100,420+normalNodes().filter(x=>x.type==='text').length*110))}normalNodes().push(n);selected=n.id;save();renderBoard();status(type==='text'?'Type your annotation, then drag it into place.':'Double-click the new card to rename it, then drag it into place.');if(type==='text')renameNode(n.id)}
 function renameNode(id){
   const n=normalNodes().find(x=>x.id===id),el=[...$('#nodes').querySelectorAll('.node')].find(x=>x.dataset.id===id);
