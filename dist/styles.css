@@ -53,6 +53,7 @@ button.active { background: var(--warm); border-color: var(--pink); }
 .source-pill img { display: block; }
 .text-button { border-color: transparent; background: transparent; color: var(--muted); white-space: nowrap; }
 .text-button:hover { color: var(--ink); background: var(--soft); }
+.text-button.active { color: var(--ink); background: var(--yellow); border-color: var(--ink); }
 
 .layout { display: grid; grid-template-columns: 250px minmax(450px, 1fr) 320px; height: calc(100vh - 84px); min-height: 650px; }
 .sidebar, .coach { padding: 1.1rem; overflow: auto; background: var(--paper); }
