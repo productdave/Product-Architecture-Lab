@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Product Architecture Lab cover</title>
+  <desc id="desc">A Product Academy learning tool with a sample system diagram.</desc>
+  <rect width="1200" height="630" fill="#FAFBF7"/>
+  <path d="M0 0h1200v9H0z" fill="#20221F"/>
+  <rect x="62" y="48" width="14" height="14" fill="#C61962"/>
+  <text x="89" y="60" fill="#20221F" font-family="DM Mono, Menlo, monospace" font-size="15" font-weight="500" letter-spacing="2">PRODUCT ACADEMY / PRACTICE TOOL</text>
+  <text x="62" y="188" fill="#20221F" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="66" font-weight="750" letter-spacing="-3">Product</text>
+  <rect x="53" y="213" width="493" height="76" fill="#FFE34D" transform="rotate(-1 53 213)"/>
+  <text x="62" y="272" fill="#20221F" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="62" font-weight="750" letter-spacing="-3">Architecture Lab</text>
+  <path d="M62 313h480" stroke="#DCDED5" stroke-width="2"/>
+  <text x="62" y="359" fill="#20221F" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="24">Learn the method. Draw the system.</text>
+  <text x="62" y="396" fill="#20221F" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="24">Defend the trade-off.</text>
+  <text x="62" y="524" fill="#5C6259" font-family="DM Mono, Menlo, monospace" font-size="16" letter-spacing="1">8 STEPS  /  4 PRACTICE CASES  /  INTERACTIVE BOARD</text>
+  <path d="M62 559h1076" stroke="#DCDED5" stroke-width="2"/>
+  <text x="62" y="589" fill="#5C6259" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="17">An independent tool for practising product architecture.</text>
+  <rect x="630" y="105" width="508" height="412" rx="12" fill="#FFFFFF" stroke="#DCDED5" stroke-width="2"/>
+  <path d="M630 151h508" stroke="#DCDED5" stroke-width="2"/>
+  <rect x="652" y="124" width="8" height="8" fill="#C61962"/>
+  <text x="673" y="133" fill="#20221F" font-family="DM Mono, Menlo, monospace" font-size="13" letter-spacing="1">SYSTEM SKETCH</text>
+  <path d="M784 247h24m142 0h31M725 285v42h67v43M879 285v40h72v45" stroke="#20221F" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <rect x="666" y="209" width="118" height="76" rx="12" fill="#FAFBF7" stroke="#20221F" stroke-width="3"/>
+  <rect x="686" y="221" width="20" height="33" rx="4" fill="none" stroke="#20221F" stroke-width="3"/>
+  <text x="715" y="252" fill="#20221F" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="18" font-weight="700">Client</text>
+  <rect x="808" y="209" width="142" height="76" rx="7" fill="#F6ECF0" stroke="#C61962" stroke-width="3"/>
+  <path d="M826 226h18m-18 9h18" stroke="#C61962" stroke-width="3"/>
+  <text x="851" y="252" fill="#20221F" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="18" font-weight="700">Service</text>
+  <path d="M981 226c0-13 124-13 124 0v42c0 13-124 13-124 0z" fill="#FFF9D8" stroke="#20221F" stroke-width="3"/>
+  <path d="M981 226c0 13 124 13 124 0" fill="none" stroke="#20221F" stroke-width="3"/>
+  <text x="1000" y="252" fill="#20221F" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="18" font-weight="700">Database</text>
+  <rect x="715" y="370" width="154" height="70" rx="7" fill="#EEF0E8" stroke="#5C6259" stroke-width="3"/>
+  <text x="743" y="412" fill="#20221F" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="18" font-weight="700">Cache</text>
+  <rect x="877" y="370" width="148" height="70" rx="26" fill="#FAFBF7" stroke="#C61962" stroke-width="3"/>
+  <text x="921" y="412" fill="#20221F" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="18" font-weight="700">Queue</text>
+  <text x="662" y="487" fill="#5C6259" font-family="DM Mono, Menlo, monospace" font-size="12" letter-spacing="1">NAME EACH COMPONENT. LABEL THE DATA.</text>
+</svg>

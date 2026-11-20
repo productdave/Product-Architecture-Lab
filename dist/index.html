@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#FAFBF7">
+  <meta name="description" content="An interactive product architecture course and whiteboard. Practise with example systems, sketch data flows, and explain your trade-offs.">
+  <title>Product Architecture Lab | Product Academy</title>
+  <link rel="icon" type="image/svg+xml" href="assets/lab-mark.svg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img class="brand-mark" src="assets/lab-mark.svg" alt="" width="44" height="44">
+      <div>
+        <strong>Product Architecture Lab</strong>
+        <small>Learn the method. Draw the system. Defend the trade-off.</small>
+      </div>
+    </div>
+    <div class="top-actions">
+      <span class="source-pill"><img src="assets/product-academy-mark.svg" alt="" width="25" height="25">Product Academy</span>
+      <button id="reset-work" class="text-button" type="button">Reset this case</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar" aria-label="Course navigation">
+      <div class="eyebrow">Practice case</div>
+      <label class="sr-only" for="case-select">Choose a practice case</label>
+      <select id="case-select"></select>
+      <p id="case-prompt" class="case-prompt"></p>
+      <div class="divider"></div>
+      <div class="eyebrow">Eight-step course</div>
+      <nav id="lesson-nav" aria-label="Lessons"></nav>
+      <div class="sidebar-foot">
+        <div id="progress-label"></div>
+        <div class="progress"><div id="progress-fill"></div></div>
+        <p>Illustrative practice cases. These are independent examples, not official interview questions.</p>
+      </div>
+    </aside>
+
+    <section class="workspace" aria-label="Interactive whiteboard">
+      <div class="board-toolbar">
+        <div class="toolbar-group">
+          <label class="sr-only" for="component-type">Component type</label>
+          <select id="component-type" aria-label="Component type">
+            <option value="client">Client</option>
+            <option value="server">Server / service</option>
+            <option value="database">Database</option>
+            <option value="cache">Cache</option>
+            <option value="queue">Queue</option>
+          </select>
+          <button type="button" id="add-component">Add component</button>
+          <button type="button" id="add-note">Add note</button>
+          <button type="button" id="add-text">Add text</button>
+        </div>
+        <div class="toolbar-group">
+          <button type="button" id="rename-selected" disabled>Rename selected</button>
+          <button type="button" id="delete-selected">Delete selected</button>
+          <button type="button" id="show-example">Show example</button>
+        </div>
+      </div>
+      <div id="board-status" class="board-status" role="status">Drag a card to move it. Drag its connector onto another card to link them.</div>
+      <div class="board-wrap">
+        <div id="board" class="board" aria-label="Architecture drawing area">
+          <svg id="edges" aria-label="Connections"></svg>
+          <div id="nodes"></div>
+          <div id="empty-board" class="empty-board">
+            <img src="assets/lab-mark.svg" alt="" width="44" height="44">
+            <strong>Start with the user action</strong>
+            <span>Add a component or note, then build the flow one decision at a time.</span>
+          </div>
+        </div>
+      </div>
+      <div class="board-footer">Click a connection label to edit it. Use Add text for annotations. Your work saves in this browser.</div>
+    </section>
+
+    <aside class="coach" aria-label="Lesson and feedback">
+      <div class="eyebrow" id="step-kicker"></div>
+      <h1 id="step-title"></h1>
+      <p id="step-intro"></p>
+      <div class="coach-section">
+        <h2>What to do</h2>
+        <p id="step-task"></p>
+      </div>
+      <div class="coach-section">
+        <h2>What good looks like</h2>
+        <ul id="step-checks"></ul>
+      </div>
+      <div class="response-section">
+        <label for="reasoning">Explain your decision</label>
+        <textarea id="reasoning" rows="4" placeholder="Write what you would say to the interviewer…"></textarea>
+      </div>
+      <div id="example-panel" class="example-panel" hidden>
+        <div class="eyebrow">Worked answer</div>
+        <p id="example-text"></p>
+      </div>
+      <div class="coach-actions">
+        <button type="button" id="reveal-answer">Reveal worked answer</button>
+        <button type="button" id="next-step" class="primary">Next step</button>
+      </div>
+    </aside>
+  </main>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>

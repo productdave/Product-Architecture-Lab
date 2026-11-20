@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">Product Architecture Lab mark</title>
+  <desc id="desc">Three connected system components on a yellow square.</desc>
+  <rect width="128" height="128" rx="24" fill="#FFE34D"/>
+  <path d="M46 45h25m-25 0v39m25-39v39" fill="none" stroke="#20221F" stroke-width="6" stroke-linecap="round"/>
+  <rect x="20" y="27" width="30" height="36" rx="7" fill="#FAFBF7" stroke="#20221F" stroke-width="6"/>
+  <path d="M30 53h10" stroke="#20221F" stroke-width="4" stroke-linecap="round"/>
+  <rect x="68" y="27" width="39" height="36" rx="7" fill="#FAFBF7" stroke="#20221F" stroke-width="6"/>
+  <path d="M79 39h17m-17 10h17" stroke="#20221F" stroke-width="4" stroke-linecap="round"/>
+  <path d="M70 75c0-7 8-11 18-11s18 4 18 11v23c0 7-8 11-18 11s-18-4-18-11z" fill="#FAFBF7" stroke="#20221F" stroke-width="6"/>
+  <path d="M70 75c0 7 8 11 18 11s18-4 18-11" fill="none" stroke="#20221F" stroke-width="6"/>
+  <rect x="18" y="89" width="14" height="14" fill="#C61962"/>
+</svg>
