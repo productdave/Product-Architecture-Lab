@@ -116,7 +116,7 @@ button.active { background: var(--warm); border-color: var(--pink); }
 .node.type-server .node-glyph::before { top: 5px; }
 .node.type-server .node-glyph::after { bottom: 5px; }
 .node.type-database { --node-color: #20221f; background: var(--warm); border-color: var(--ink); border-radius: 50% 50% 8px 8px / 12px 12px 8px 8px; }
-.node.type-database::before { content: ""; position: absolute; top: 9px; right: -2px; left: -2px; height: 12px; border-bottom: 2px solid var(--ink); border-radius: 50%; pointer-events: none; }
+.node.type-database::before { content: ""; position: absolute; top: 2px; right: -2px; left: -2px; height: 7px; border-bottom: 2px solid var(--ink); border-radius: 50%; pointer-events: none; }
 .node.type-database .node-glyph { width: 22px; height: 20px; border: 2px solid currentColor; border-radius: 50% 50% 4px 4px / 6px 6px 4px 4px; }
 .node.type-database .node-glyph::after { content: ""; position: absolute; top: 3px; right: -2px; left: -2px; height: 7px; border-bottom: 2px solid currentColor; border-radius: 50%; }
 .node.type-cache { --node-color: #5c6259; background: var(--soft); border-color: var(--muted); border-radius: 3px 18px 3px 18px; }
