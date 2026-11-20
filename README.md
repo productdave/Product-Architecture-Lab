@@ -10,7 +10,7 @@
 
 An interactive course and whiteboard for practising product architecture in product management interviews.
 
-[Try the live lab](https://productdave.github.io/Product-Architecture-Lab/)
+[Try the lab on Product Academy](https://www.productacademy.io/resources/product-architecture-lab/) · [GitHub Pages mirror](https://productdave.github.io/Product-Architecture-Lab/)
 
 </div>
 
